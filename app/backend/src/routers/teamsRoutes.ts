@@ -1,9 +1,10 @@
-// import { Router } from 'express';
+import { Router } from 'express';
+import TeamControllers from '../controllers/teamsControllers';
 
-// const routers = Router();
+const routers = Router();
 
-// const teamsControllers = new TeamControllers();
+const teamsControllers = new TeamControllers();
 
-// routers.get('/', teamsControllers);
+routers.get('/', teamsControllers.getAllTeams.bind(teamsControllers));
 
-// export default routers;
+export default routers;
