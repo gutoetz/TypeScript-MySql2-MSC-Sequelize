@@ -10,6 +10,12 @@ class TeamService implements ITeamService {
     const teams: ITeam[] = await this.teamsModel.findAll();
     return teams;
   }
+
+  public async getTeamById(id: string): Promise<ITeam> {
+    const team: ITeam | null = await this.teamsModel.findByPk(id);
+    if (team) return team;
+    throw new Error();
+  }
 }
 
 export default TeamService;
