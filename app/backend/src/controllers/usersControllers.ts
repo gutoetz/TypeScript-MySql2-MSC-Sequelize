@@ -9,6 +9,12 @@ class UsersControllers {
     const teams = await this.userService.usersLogin(body);
     res.status(200).json(teams);
   }
+
+  public async usersGetRole(req: Request, res: Response) {
+    const token = req.headers.authorization;
+    const getRole = await this.userService.usersGetRole(token);
+    res.status(200).json(getRole);
+  }
 }
 
 export default UsersControllers;

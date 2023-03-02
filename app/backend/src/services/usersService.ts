@@ -4,7 +4,7 @@ import validateLogin from '../middleware/validateLogin.middleware';
 import Users from '../database/models/Users';
 import HttpException from '../utils/http.exception';
 import { IUser, IToken } from '../interfaces/Interfaces';
-import { createToken } from '../utils/jwtVerify';
+import { createToken, authenticatToken } from '../utils/jwtVerify';
 
 class UserService {
   protected usersModel: ModelStatic<Users> = Users;
@@ -25,6 +25,15 @@ class UserService {
       return { token };
     }
     throw new HttpException(401, 'Invalid email or password');
+  }
+
+  public async usersGetRole(token: string | undefined) {
+    if (!token) throw new HttpException(401, 'Token not found');
+    const verifyToken = await authenticatToken(token);
+    const { email } = verifyToken;
+    const getRole = await this.usersModel.findOne({ where: { email } });
+    if (getRole) return { role: getRole.dataValues.role };
+    throw new HttpException(401, 'User not found');
   }
 }
 
