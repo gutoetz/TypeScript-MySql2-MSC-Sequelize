@@ -1,3 +1,5 @@
 import ITeam from './ITeam';
+import IUser from './IUser';
+import IToken from './IToken';
 
-export default ITeam;
+export { ITeam, IUser, IToken };
