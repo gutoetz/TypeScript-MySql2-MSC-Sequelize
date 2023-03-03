@@ -21,7 +21,7 @@ class UserService {
     const hash = login?.dataValues.password;
     const match = await bcrypt.compare(password, hash);
     if (match) {
-      const token = createToken(email, login?.dataValues.id);
+      const token = await createToken(email, login?.dataValues.id);
       return { token };
     }
     throw new HttpException(401, 'Invalid email or password');

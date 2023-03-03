@@ -1,4 +1,5 @@
 import { ModelStatic } from 'sequelize';
+import HttpException from '../utils/http.exception';
 import ITeam from '../interfaces/ITeam';
 import ITeamService from '../interfaces/ITeamService';
 import Team from '../database/models/Teams';
@@ -14,7 +15,7 @@ class TeamService implements ITeamService {
   public async getTeamById(id: string): Promise<ITeam> {
     const team: ITeam | null = await this.teamsModel.findByPk(id);
     if (team) return team;
-    throw new Error();
+    throw new HttpException(400, 'algum erro');
   }
 }
 

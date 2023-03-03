@@ -11,7 +11,7 @@ class UsersControllers {
   }
 
   public async usersGetRole(req: Request, res: Response) {
-    const token = req.headers.authorization;
+    const token: string | undefined = req.headers.authorization;
     const getRole = await this.userService.usersGetRole(token);
     res.status(200).json(getRole);
   }
