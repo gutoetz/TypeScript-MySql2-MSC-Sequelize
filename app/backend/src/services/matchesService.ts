@@ -1,4 +1,5 @@
 import { ModelStatic } from 'sequelize';
+import { authenticatToken } from '../utils/jwtVerify';
 import Team from '../database/models/Teams';
 // import HttpException from '../utils/http.exception';
 // import ITeam from '../interfaces/ITeam';
@@ -17,6 +18,12 @@ class MatchesService {
       return matches.filter((match) => match.inProgress === isTrue);
     }
     return matches;
+  }
+
+  public async getMatchesById(id: string, token: string | undefined) {
+    await authenticatToken(token);
+    const changeMatch = await this.matchesModel.update({ inProgress: false }, { where: { id } });
+    if (changeMatch) return 1;
   }
 }
 
