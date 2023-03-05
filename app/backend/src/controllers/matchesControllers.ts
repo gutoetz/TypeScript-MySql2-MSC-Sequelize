@@ -24,6 +24,23 @@ class MatchesControllers {
     const changed = await this.matchesService.changeMatchesById(id, token, result);
     if (changed) { res.status(200).json({ message: 'Changed' }); }
   }
+
+  public async createMatch(req: Request, res: Response) {
+    const token = req.headers.authorization;
+    const result = req.body;
+    const created = await this.matchesService.createMatch(token, result);
+    if (created) {
+      const createdMatch = {
+        id: created,
+        homeTeamId: result.homeTeamId,
+        homeTeamGoals: result.homeTeamGoals,
+        awayTeamId: result.awayTeamId,
+        awayTeamGoals: result.awayTeamGoals,
+        inProgress: true,
+      };
+      res.status(201).json(createdMatch);
+    }
+  }
 }
 
 export default MatchesControllers;
