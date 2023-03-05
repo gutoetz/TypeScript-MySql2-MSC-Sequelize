@@ -16,6 +16,14 @@ class MatchesControllers {
     const changed = await this.matchesService.getMatchesById(id, token);
     if (changed) { res.status(200).json({ message: 'Finished' }); }
   }
+
+  public async changeMatchesById(req: Request, res: Response) {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+    const result = req.body;
+    const changed = await this.matchesService.changeMatchesById(id, token, result);
+    if (changed) { res.status(200).json({ message: 'Changed' }); }
+  }
 }
 
 export default MatchesControllers;

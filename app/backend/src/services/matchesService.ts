@@ -4,6 +4,7 @@ import Team from '../database/models/Teams';
 // import HttpException from '../utils/http.exception';
 // import ITeam from '../interfaces/ITeam';
 import Matches from '../database/models/Match';
+import { IResult } from '../interfaces/Interfaces';
 
 class MatchesService {
   protected matchesModel: ModelStatic<Matches> = Matches;
@@ -23,6 +24,15 @@ class MatchesService {
   public async getMatchesById(id: string, token: string | undefined) {
     await authenticatToken(token);
     const changeMatch = await this.matchesModel.update({ inProgress: false }, { where: { id } });
+    if (changeMatch) return 1;
+  }
+
+  public async changeMatchesById(id: string, token: string | undefined, result: IResult) {
+    await authenticatToken(token);
+    const changeMatch = await this.matchesModel.update({
+      homeTeamGoals: result.homeTeamGoals,
+      awayTeamGoals: result.awayTeamGoals,
+    }, { where: { id } });
     if (changeMatch) return 1;
   }
 }
