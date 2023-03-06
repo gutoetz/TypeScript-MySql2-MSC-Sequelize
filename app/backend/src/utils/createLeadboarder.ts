@@ -10,29 +10,33 @@ const objetoInicial = {
   goalsOwn: 0,
 };
 
-function reduceMatches(matches: IMatches[]): IBoard {
+function reduceMatches(matches: IMatches[], side: 'away' | 'home'): IBoard {
   const reducedMatches = matches.reduce((previous, match) => {
     const actualObject: IBoard = { ...previous };
     const { awayTeamGoals, homeTeamGoals } = match;
-    if (homeTeamGoals > awayTeamGoals) {
+    const HT = (side === 'home') ? homeTeamGoals : awayTeamGoals;
+    const AT = (side === 'home') ? awayTeamGoals : homeTeamGoals;
+    if (HT > AT) {
       actualObject.totalVictories += 1;
       actualObject.totalPoints += 3;
-    } if (homeTeamGoals < awayTeamGoals) {
+    } if (HT < AT) {
       actualObject.totalLosses += 1;
-    } if (homeTeamGoals === awayTeamGoals) {
+    } if (HT === AT) {
       actualObject.totalDraws += 1;
       actualObject.totalPoints += 1;
     }
-    actualObject.goalsOwn += match.awayTeamGoals;
-    actualObject.goalsFavor += match.homeTeamGoals;
-    actualObject.totalGames += 1;
-    return actualObject;
-  }, objetoInicial);
-  return reducedMatches;
+    actualObject.goalsOwn += AT;
+    actualObject.goalsFavor += HT;
+    actualObject.totalGames += 1; return actualObject;
+  }, objetoInicial); return reducedMatches;
 }
-function createLeaderBoarder(teamValues: ITeam, matches: IMatches[]): ILeaderboardEff {
+function createLeaderBoarder(
+  teamValues: ITeam,
+  matches: IMatches[],
+  side: 'home' | 'away',
+): ILeaderboardEff {
   const { teamName } = teamValues;
-  const finalResults = reduceMatches(matches);
+  const finalResults = reduceMatches(matches, side);
   const result: ILeaderboardEff = {
     name: teamName,
     ...finalResults,

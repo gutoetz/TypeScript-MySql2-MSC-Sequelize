@@ -5,6 +5,7 @@ const routers = Router();
 
 const leaderBoardControllers = new LeaderBoardControllers();
 
-routers.get('/home', leaderBoardControllers.getBoard.bind(leaderBoardControllers));
+routers.get('/home', leaderBoardControllers.getBoardHome.bind(leaderBoardControllers));
+routers.get('/away', leaderBoardControllers.getBoardAway.bind(leaderBoardControllers));
 
 export default routers;
