@@ -1,3 +1,4 @@
-export default interface IMatchQuery extends Request{
+interface IMatchQuery extends Request{
   inProgress:boolean
 }
+export default IMatchQuery;
