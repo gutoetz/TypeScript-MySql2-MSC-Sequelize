@@ -13,6 +13,11 @@ class LeaderBoarderControllers {
     const matches = await this.leaderBoardService.getBoardAway();
     res.status(200).json(matches);
   }
+
+  public async getBoard(req: Request, res: Response) {
+    const matches = await this.leaderBoardService.getBoard();
+    res.status(200).json(matches);
+  }
 }
 
 export default LeaderBoarderControllers;

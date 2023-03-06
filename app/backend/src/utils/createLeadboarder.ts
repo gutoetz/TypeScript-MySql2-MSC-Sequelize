@@ -61,11 +61,24 @@ function orderedResult(result: ILeaderboardEff[]) {
     if (t1.goalsOwn < t2.goalsOwn) return 1;
     return 0;
   });
-  //   newResult.sort((a, b) => {
-  //     if (a.efficiency > b.efficiency) return -1;
-  //     return +1;
-  //   });
+
   return newResult;
 }
 
-export { createLeaderBoarder, orderedResult };
+function sumLeaderBoarder(leadHome: ILeaderboardEff, leadAway: ILeaderboardEff): ILeaderboardEff {
+  const sumBoard: ILeaderboardEff = {
+    name: leadHome.name,
+    totalPoints: leadHome.totalPoints + leadAway.totalPoints,
+    totalGames: leadHome.totalGames + leadAway.totalGames,
+    totalVictories: leadHome.totalVictories + leadAway.totalVictories,
+    totalDraws: leadHome.totalDraws + leadAway.totalDraws,
+    totalLosses: leadHome.totalLosses + leadAway.totalLosses,
+    goalsFavor: leadHome.goalsFavor + leadAway.goalsFavor,
+    goalsOwn: leadHome.goalsOwn + leadAway.goalsOwn,
+    goalsBalance: leadHome.goalsBalance + leadAway.goalsBalance,
+    efficiency: (((leadHome.totalPoints + leadAway.totalPoints)
+    / ((leadHome.totalGames + leadAway.totalGames) * 3)) * 100).toFixed(2),
+  };
+  return sumBoard;
+}
+export { createLeaderBoarder, orderedResult, sumLeaderBoarder };

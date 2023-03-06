@@ -1,7 +1,7 @@
 import { ModelStatic } from 'sequelize';
 import Team from '../database/models/Teams';
 import Matches from '../database/models/Match';
-import { orderedResult, createLeaderBoarder } from '../utils/createLeadboarder';
+import { orderedResult, createLeaderBoarder, sumLeaderBoarder } from '../utils/createLeadboarder';
 import { IMatches, ILeaderboardEff } from '../interfaces/Interfaces';
 // import { authenticatToken } from '../utils/jwtVerify';
 // import HttpException from '../utils/http.exception';
@@ -36,6 +36,25 @@ class LeaderBoardService {
         .filter((match) => match.awayTeamId === e.dataValues.id);
       const leaderboard = createLeaderBoarder(e.dataValues, matcPlayed, 'away');
       result.push(leaderboard);
+    });
+    const orderResult = orderedResult(result);
+    return orderResult;
+  }
+
+  public async getBoard() {
+    const teams = await this.teamModel.findAll();
+    const matches = (await this.matchesModel
+      .findAll({ where: { inProgress: false } })).map((e) => e.dataValues);
+    const result: ILeaderboardEff[] = [];
+    teams.forEach((e) => {
+      const home: IMatches[] = matches
+        .filter((match) => match.homeTeamId === e.dataValues.id);
+      const away: IMatches[] = matches
+        .filter((match) => match.awayTeamId === e.dataValues.id);
+      const leaderBoardHome = createLeaderBoarder(e.dataValues, home, 'home');
+      const leaderBoardAway = createLeaderBoarder(e.dataValues, away, 'away');
+      const sumBoards: ILeaderboardEff = sumLeaderBoarder(leaderBoardAway, leaderBoardHome);
+      result.push(sumBoards);
     });
     const orderResult = orderedResult(result);
     return orderResult;
