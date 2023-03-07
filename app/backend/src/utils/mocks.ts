@@ -37,4 +37,38 @@ const userDb = { dataValues:
 
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlk
 IjoxLCJpYXQiOjE2Nzc4NzE3NDcsImV4cCI6MTY3ODQ3NjU0N30.rpxV8zA2lL1TXIR4qqwT4K30n1tungG_eyrN4cHGdWA`;
-export { teams, team, user, token, userDb };
+
+const matches = [
+  {
+    id: 1,
+    homeTeamId: 1,
+    homeTeamGoals: 3,
+    awayTeamId: 2,
+    awayTeamGoals: 2,
+    inProgress: true,
+  },
+  {
+    id: 2,
+    homeTeamId: 3,
+    homeTeamGoals: 7,
+    awayTeamId: 4,
+    awayTeamGoals: 1,
+    inProgress: true,
+  },
+];
+
+const matchesBody = {
+  awayTeamGoals: 2,
+  homeTeamGoals: 2,
+};
+
+const matchesCreate = {
+  homeTeamId: 16,
+  awayTeamId: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
+const returnCreate = {
+  dataValues: { id: 2 },
+};
+export { returnCreate, matchesCreate, matchesBody, teams, team, user, token, userDb, matches };

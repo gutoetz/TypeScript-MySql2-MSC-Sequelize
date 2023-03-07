@@ -44,5 +44,21 @@ interface IBoard {
   goalsFavor: number,
   goalsOwn: number,
 }
-export { ITeam, IUser, IToken, IResult, IInsertMatch, ILeaderboard, IMatches, IBoard,
+
+interface IMatchesTst {
+  id: number,
+  homeTeamId: number,
+  homeTeamGoals: number,
+  awayTeamId: number,
+  awayTeamGoals: number,
+  inProgress: boolean,
+  homeTeam: {
+    teamName: string,
+  },
+  awayTeam: {
+    teamName: string,
+  },
+}
+
+export { IMatchesTst, ITeam, IUser, IToken, IResult, IInsertMatch, ILeaderboard, IMatches, IBoard,
   ILeaderboardEff };

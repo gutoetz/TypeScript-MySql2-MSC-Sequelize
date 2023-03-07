@@ -7,6 +7,8 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
+import { Model } from 'sequelize';
+import Team from '../database/models/Teams';
 
 chai.use(chaiHttp);
 
@@ -14,18 +16,14 @@ const { expect } = chai;
 
 describe('Testing route Teams', () => {
   let chaiHttpResponse: Response;
+  const sandbox = sinon.createSandbox()
 
-//   beforeEach(async () => {
-//     sinon
-//       .stub(Team, "findOneTeam")
-//       .resolves({
-//         ...<Seu mock>
-//       } as Example);
-//   });
-
-  // afterEach(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+  afterEach(async () => {
+    sandbox.restore(); 
+});
+  beforeEach(async () => {
+    sinon.restore()
+  });
 
   it('Testing case 1: should return status 200', async () => {
     chaiHttpResponse = await chai
