@@ -22,8 +22,8 @@ class LeaderBoardService {
       const leaderboard = createLeaderBoarder(e.dataValues, matcPlayed, 'home');
       result.push(leaderboard);
     });
-    const orderResult = orderedResult(result);
-    return orderResult;
+    console.log(result);
+    return orderedResult(result);
   }
 
   public async getBoardAway() {
@@ -37,8 +37,7 @@ class LeaderBoardService {
       const leaderboard = createLeaderBoarder(e.dataValues, matcPlayed, 'away');
       result.push(leaderboard);
     });
-    const orderResult = orderedResult(result);
-    return orderResult;
+    return orderedResult(result);
   }
 
   public async getBoard() {
@@ -56,8 +55,7 @@ class LeaderBoardService {
       const sumBoards: ILeaderboardEff = sumLeaderBoarder(leaderBoardAway, leaderBoardHome);
       result.push(sumBoards);
     });
-    const orderResult = orderedResult(result);
-    return orderResult;
+    return orderedResult(result);
   }
 }
 

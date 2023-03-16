@@ -1,6 +1,6 @@
 import { IMatches, ITeam, IBoard, ILeaderboardEff } from '../interfaces/Interfaces';
 
-const objetoInicial = {
+const objectInicial = {
   totalPoints: 0,
   totalGames: 0,
   totalVictories: 0,
@@ -28,7 +28,7 @@ function reduceMatches(matches: IMatches[], side: 'away' | 'home'): IBoard {
     actualObject.goalsOwn += AT;
     actualObject.goalsFavor += HT;
     actualObject.totalGames += 1; return actualObject;
-  }, objetoInicial); return reducedMatches;
+  }, objectInicial); return reducedMatches;
 }
 function createLeaderBoarder(
   teamValues: ITeam,
